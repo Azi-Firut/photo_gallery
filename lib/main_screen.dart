@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
@@ -17,20 +18,26 @@ class _HomePageState extends State<HomePageView> {
   List imagesUrl = [];
   @override
   void initState() {
-    super.initState();
     fetchDataFromApi();
+    super.initState();
+
+    //imagesUrl[3] = 'null';
+    log(imagesUrl.toString());
   }
 
   Future<String> fetchDataFromApi() async {
     var jsonData = await http.get(Uri.parse(
-        // 'https://s3-us-west-2.amazonaws.com/appsdeveloperblog.com/tutorials/files/cats.json'));
-        'https://jsonplaceholder.typicode.com/photos'));
+        'https://s3-us-west-2.amazonaws.com/appsdeveloperblog.com/tutorials/files/cats.json'));
+    //'https://jsonplaceholder.typicode.com/photos'));
+
     var fetchData = jsonDecode(jsonData.body);
     setState(() {
       data = fetchData;
       for (var element in data) {
         imagesUrl.add(element['url']);
+        //log(imagesUrl.toString());
       }
+      // log(imagesUrl.toString());
     });
     return "Success";
   }
@@ -61,7 +68,10 @@ class _HomePageState extends State<HomePageView> {
                     child: CachedNetworkImage(
                       width: double.infinity,
                       fit: BoxFit.cover,
-                      imageUrl: imagesUrl[index],
+                      imageUrl: // imagesUrl[index],
+                          ((imagesUrl[index]) == null)
+                              ? ('https://fonarevka.ua/home/core_themes/item_1/noimage/no_img_600x600.png')
+                              : imagesUrl[index],
                       progressIndicatorBuilder:
                           (context, url, downloadProgress) => Padding(
                         padding: const EdgeInsets.all(30.0),
