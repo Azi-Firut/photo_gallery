@@ -44,7 +44,13 @@ class _HomePageState extends State<HomePageView> {
 
     setState(() {
       data = fetchData;
-      num = (data.length < 15) ? num = data.length : num = 15;
+      if ((data.length < 100)) {
+        data = data;
+      } else {
+        data.removeRange(100, data.length);
+      }
+
+      num = (data.length < 18) ? num = data.length : num = 18;
 
       for (var element in data) {
         imagesUrl.add(element['url']);
