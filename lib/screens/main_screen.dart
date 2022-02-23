@@ -85,7 +85,7 @@ class _HomePageState extends State<HomePageView> {
                       fit: BoxFit.cover,
                       imageUrl: // imagesUrl[index],
                           ((imagesUrl[index]) == null)
-                              ? (noImage)
+                              ? (noImageUrl)
                               : imagesUrl[index],
                       progressIndicatorBuilder:
                           (context, url, downloadProgress) => Padding(
