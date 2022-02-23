@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'dart:developer';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
@@ -16,28 +15,45 @@ class HomePageView extends StatefulWidget {
 class _HomePageState extends State<HomePageView> {
   late List data;
   List imagesUrl = [];
+  late int num = 0;
+  final ScrollController _controller = ScrollController();
+
+  void _onScrollEvent() {
+    final extentAfter = _controller.position.extentAfter;
+
+    if (extentAfter == 0.0) {
+      num = num + 10;
+      num = (num > data.length) ? num = data.length : num;
+    }
+    setState(() {
+      num;
+    });
+  }
+
   @override
   void initState() {
     fetchDataFromApi();
+    _controller.addListener(_onScrollEvent);
     super.initState();
-
-    //imagesUrl[3] = 'null';
-    log(imagesUrl.toString());
   }
 
   Future<String> fetchDataFromApi() async {
     var jsonData = await http.get(Uri.parse(
-        'https://s3-us-west-2.amazonaws.com/appsdeveloperblog.com/tutorials/files/cats.json'));
-    //'https://jsonplaceholder.typicode.com/photos'));
+        //  'https://s3-us-west-2.amazonaws.com/appsdeveloperblog.com/tutorials/files/cats.json'));
+        'https://jsonplaceholder.typicode.com/photos'));
 
     var fetchData = jsonDecode(jsonData.body);
+
     setState(() {
       data = fetchData;
+      // data = (data.length < 100)
+      //     ? data
+      //     : data = data.removeRange(100, data.length);
+      num = (data.length < 15) ? num = data.length : num = 15;
+
       for (var element in data) {
         imagesUrl.add(element['url']);
-        //log(imagesUrl.toString());
       }
-      // log(imagesUrl.toString());
     });
     return "Success";
   }
@@ -48,6 +64,7 @@ class _HomePageState extends State<HomePageView> {
       backgroundColor: colorGray,
       body: SafeArea(
         child: CustomScrollView(
+          controller: _controller,
           scrollDirection: Axis.vertical,
           slivers: <Widget>[
             SliverGrid(
@@ -57,13 +74,16 @@ class _HomePageState extends State<HomePageView> {
                   padding: const EdgeInsets.all(2.0),
                   child: GestureDetector(
                     onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) =>
-                              ImageScreen(img: imagesUrl[index]),
-                        ),
-                      );
+                      if ((imagesUrl[index]) == null) {
+                      } else {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) =>
+                                ImageScreen(img: imagesUrl[index]),
+                          ),
+                        );
+                      }
                     },
                     child: CachedNetworkImage(
                       width: double.infinity,
@@ -87,7 +107,7 @@ class _HomePageState extends State<HomePageView> {
                     ),
                   ),
                 );
-              }, childCount: imagesUrl.length),
+              }, childCount: num),
               gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 3,
                   crossAxisSpacing: 0,
