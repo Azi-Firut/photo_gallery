@@ -5,7 +5,6 @@ import 'package:http/http.dart' as http;
 import 'package:photo_gallery/constants/constant.dart';
 import 'package:photo_gallery/widgets/image_screen.dart';
 
-
 class HomePageView extends StatefulWidget {
   const HomePageView({Key? key}) : super(key: key);
 
@@ -86,7 +85,7 @@ class _HomePageState extends State<HomePageView> {
                       fit: BoxFit.cover,
                       imageUrl: // imagesUrl[index],
                           ((imagesUrl[index]) == null)
-                              ? ('https://fonarevka.ua/home/core_themes/item_1/noimage/no_img_600x600.png')
+                              ? (noImage)
                               : imagesUrl[index],
                       progressIndicatorBuilder:
                           (context, url, downloadProgress) => Padding(
