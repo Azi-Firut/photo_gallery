@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'constant.dart';
-import 'main_screen.dart';
+import 'constants/constant.dart';
+import 'screens/main_screen.dart';
 
 void main() {
   runApp(const MyApp());

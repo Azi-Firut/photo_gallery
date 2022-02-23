@@ -2,8 +2,9 @@ import 'dart:convert';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'package:photo_gallery/constant.dart';
-import 'package:photo_gallery/image_screen.dart';
+import 'package:photo_gallery/constants/constant.dart';
+import 'package:photo_gallery/widgets/image_screen.dart';
+
 
 class HomePageView extends StatefulWidget {
   const HomePageView({Key? key}) : super(key: key);
@@ -38,17 +39,12 @@ class _HomePageState extends State<HomePageView> {
   }
 
   Future<String> fetchDataFromApi() async {
-    var jsonData = await http.get(Uri.parse(
-        //  'https://s3-us-west-2.amazonaws.com/appsdeveloperblog.com/tutorials/files/cats.json'));
-        'https://jsonplaceholder.typicode.com/photos'));
+    var jsonData = await http.get(Uri.parse(fetchUrl));
 
     var fetchData = jsonDecode(jsonData.body);
 
     setState(() {
       data = fetchData;
-      // data = (data.length < 100)
-      //     ? data
-      //     : data = data.removeRange(100, data.length);
       num = (data.length < 15) ? num = data.length : num = 15;
 
       for (var element in data) {
@@ -101,7 +97,7 @@ class _HomePageState extends State<HomePageView> {
                             value: downloadProgress.progress),
                       ),
                       errorWidget: (context, url, error) => Image.asset(
-                        'assets/images/noimg.png',
+                        'assets/images/no_image.png',
                         fit: BoxFit.cover,
                       ),
                     ),
