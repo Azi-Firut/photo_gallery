@@ -22,7 +22,7 @@ class _HomePageState extends State<HomePageView> {
     final extentAfter = _controller.position.extentAfter;
 
     if (extentAfter == 0.0) {
-      num = num + 10;
+      num = num + 9;
       num = (num > data.length) ? num = data.length : num;
     }
     setState(() {
@@ -58,72 +58,75 @@ class _HomePageState extends State<HomePageView> {
     return Scaffold(
       backgroundColor: colorGray,
       body: SafeArea(
-        child: CustomScrollView(
-          controller: _controller,
-          scrollDirection: Axis.vertical,
-          slivers: <Widget>[
-            SliverGrid(
-              delegate:
-                  SliverChildBuilderDelegate((BuildContext context, int index) {
-                return Padding(
-                  padding: const EdgeInsets.all(2.0),
-                  child: GestureDetector(
-                    onTap: () {
-                      if ((imagesUrl[index]) == null) {
-                      } else {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) =>
-                                ImageScreen(img: imagesUrl[index]),
-                          ),
-                        );
-                      }
-                    },
-                    child: CachedNetworkImage(
-                      width: double.infinity,
-                      fit: BoxFit.cover,
-                      imageUrl: // imagesUrl[index],
-                          ((imagesUrl[index]) == null)
-                              ? (noImageUrl)
-                              : imagesUrl[index],
-                      progressIndicatorBuilder:
-                          (context, url, downloadProgress) => Padding(
-                        padding: const EdgeInsets.all(30.0),
-                        child: CircularProgressIndicator(
-                            strokeWidth: 10,
-                            color: Colors.deepOrange,
-                            value: downloadProgress.progress),
-                      ),
-                      errorWidget: (context, url, error) => Image.asset(
-                        'assets/images/no_image.png',
-                        fit: BoxFit.cover,
-                      ),
-                    ),
-                  ),
-                );
-              }, childCount: num),
-              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 3,
-                  crossAxisSpacing: 0,
-                  mainAxisSpacing: 0,
-                  childAspectRatio: 1),
-            ),
-            SliverFixedExtentList(
+        child: Padding(
+          padding: const EdgeInsets.only(left: 3, right: 3),
+          child: CustomScrollView(
+            controller: _controller,
+            scrollDirection: Axis.vertical,
+            slivers: <Widget>[
+              SliverGrid(
                 delegate: SliverChildBuilderDelegate(
                     (BuildContext context, int index) {
-                  return const Center(
-                    child: Text(
-                      'end of story :(',
-                      textScaleFactor: 1.2,
-                      style: TextStyle(
-                        color: Colors.deepOrange,
+                  return Padding(
+                    padding: const EdgeInsets.all(3.0),
+                    child: GestureDetector(
+                      onTap: () {
+                        if ((imagesUrl[index]) == null) {
+                        } else {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) =>
+                                  ImageScreen(img: imagesUrl[index]),
+                            ),
+                          );
+                        }
+                      },
+                      child: CachedNetworkImage(
+                        width: double.infinity,
+                        fit: BoxFit.cover,
+                        imageUrl: // imagesUrl[index],
+                            ((imagesUrl[index]) == null)
+                                ? (noImageUrl)
+                                : imagesUrl[index],
+                        progressIndicatorBuilder:
+                            (context, url, downloadProgress) => Padding(
+                          padding: const EdgeInsets.all(30.0),
+                          child: CircularProgressIndicator(
+                              strokeWidth: 10,
+                              color: Colors.deepOrange,
+                              value: downloadProgress.progress),
+                        ),
+                        errorWidget: (context, url, error) => Image.asset(
+                          'assets/images/no_image.png',
+                          fit: BoxFit.cover,
+                        ),
                       ),
                     ),
                   );
-                }, childCount: 1),
-                itemExtent: 60),
-          ],
+                }, childCount: num),
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 3,
+                    crossAxisSpacing: 0,
+                    mainAxisSpacing: 0,
+                    childAspectRatio: 1),
+              ),
+              SliverFixedExtentList(
+                  delegate: SliverChildBuilderDelegate(
+                      (BuildContext context, int index) {
+                    return const Center(
+                      child: Text(
+                        'end of story :(',
+                        textScaleFactor: 1.2,
+                        style: TextStyle(
+                          color: Colors.deepOrange,
+                        ),
+                      ),
+                    );
+                  }, childCount: 1),
+                  itemExtent: 60),
+            ],
+          ),
         ),
       ),
     );
