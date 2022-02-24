@@ -4,4 +4,4 @@ A test task project.
 
 ## demo:
 
-![screenshot of sample](https://github.com/Zifirut/e_commers_one/blob/master/ecommers%20.gif)
+![screenshot of sample](https://github.com/Zifirut/photo_gallery/blob/master/demo.gif)
