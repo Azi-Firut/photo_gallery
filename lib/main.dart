@@ -6,11 +6,11 @@ import 'screens/main_screen.dart';
 void main() {
   runApp(const MyApp());
   SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
-    statusBarColor: colorGray,
-    systemNavigationBarDividerColor: Colors.black12,
+    statusBarColor: Colors.transparent,
+    systemNavigationBarDividerColor: Colors.transparent,
     statusBarIconBrightness: Brightness.light,
     systemNavigationBarIconBrightness: Brightness.light,
-    systemNavigationBarColor: colorGray,
+    systemNavigationBarColor: kNavBarColor,
   ));
 }
 
@@ -20,7 +20,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const MaterialApp(
-      color: colorGray,
+      color: Colors.orange,
       debugShowCheckedModeBanner: false,
       home: HomePageView(),
     );

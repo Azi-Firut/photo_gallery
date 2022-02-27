@@ -10,22 +10,23 @@ class ImageScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: colorGray,
+      backgroundColor: kNavBarColor,
       body: SafeArea(
           child: SizedBox(
         width: double.infinity,
         height: double.infinity,
         child: CachedNetworkImage(
-          fit: BoxFit.fill,
+          fit: BoxFit.fitHeight,
           imageUrl: img,
         ),
       )),
       floatingActionButton: FloatingActionButton(
-        backgroundColor: Colors.deepOrange,
+        elevation: 6,
+        backgroundColor: kButtonColor,
         onPressed: () {},
         child: const Icon(
           Icons.share,
-          color: Colors.white,
+          color: kColorOther,
         ),
       ),
     );
