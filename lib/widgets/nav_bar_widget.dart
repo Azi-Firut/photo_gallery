@@ -16,7 +16,7 @@ class BottomNavBar extends StatelessWidget {
           foregroundPainter: BottomCustomPainter(),
         ),
         // Center(
-        //   heightFactor: 0.6,
+        //   heightFactor: 1.1,
         //   child: FloatingActionButton(
         //       backgroundColor: Colors.orange,
         //       child: Icon(Icons.shopping_basket),
@@ -33,7 +33,7 @@ class BottomCustomPainter extends CustomPainter {
   void paint(Canvas canvas, Size size) {
     Paint paint = Paint()
       ..strokeWidth = 2
-      ..color = kButtonColor
+      ..color = kAllBarColor
       ..style = PaintingStyle.fill;
 
     Path path = Path();
@@ -51,10 +51,7 @@ class BottomCustomPainter extends CustomPainter {
 
     // Shadow path
     Path pathShadow = Path();
-//
-    //
-    //
-    //
+
     pathShadow.moveTo(0, -25); // Start // left top corner
     pathShadow.quadraticBezierTo(0, -10, 25, -10); // left top corner
     pathShadow.lineTo(size.width - 25, -10); // line center
@@ -67,7 +64,7 @@ class BottomCustomPainter extends CustomPainter {
     pathShadow.lineTo(0, size.height + 20); // bottom line
     pathShadow.lineTo(0, -25); // End // left line
 
-    canvas.drawShadow(pathShadow, Colors.black, 4, false);
+    canvas.drawShadow(pathShadow, Colors.black, 3, false);
     canvas.drawPath(path, paint);
   }
 

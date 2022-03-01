@@ -1,10 +1,10 @@
 import 'dart:convert';
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:photo_gallery/constants/constant.dart';
-import 'package:photo_gallery/screens/image_screen.dart';
-
+import 'package:photo_gallery/widgets/end_of_story_widget.dart';
+import 'package:photo_gallery/widgets/picture_widget.dart';
+import '../widgets/app_bar_widget.dart';
 import '../widgets/nav_bar_widget.dart';
 
 class HomePageView extends StatefulWidget {
@@ -53,7 +53,7 @@ class _HomePageState extends State<HomePageView> {
       }
       num = (data.length < 18) ? num = data.length : num = 18;
       for (var element in data) {
-        imagesUrl.add(element['url']);
+        imagesUrl.add(element[url]);
       }
     });
     return "Success";
@@ -62,70 +62,32 @@ class _HomePageState extends State<HomePageView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.red,
+        elevation: 0,
+        toolbarHeight: -10,
+        flexibleSpace: const CustomAppBar(),
+      ),
       bottomNavigationBar: const BottomNavBar(),
       body: Container(
         decoration: BoxDecoration(gradient: kBgGradient),
         child: SafeArea(
           child: Padding(
-            padding: const EdgeInsets.only(left: 3, right: 3),
+            padding: const EdgeInsets.only(left: 8, right: 8, top: 0),
             child: CustomScrollView(
               controller: _controller,
               scrollDirection: Axis.vertical,
               slivers: <Widget>[
+                SliverFixedExtentList(
+                    delegate: SliverChildBuilderDelegate(
+                        (BuildContext context, int index) {
+                      return const SizedBox(height: 15); //5
+                    }, childCount: 1),
+                    itemExtent: 15),
                 SliverGrid(
                   delegate: SliverChildBuilderDelegate(
                       (BuildContext context, int index) {
-                    return Padding(
-                      padding: const EdgeInsets.all(3.0),
-                      child: GestureDetector(
-                        onTap: () {
-                          if ((imagesUrl[index]) == null) {
-                          } else {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) =>
-                                    ImageScreen(img: imagesUrl[index]),
-                              ),
-                            );
-                          }
-                        },
-                        child: CachedNetworkImage(
-                          width: double.infinity,
-                          fit: BoxFit.cover,
-                          imageUrl: imagesUrl[index] ?? kNoImageUrl,
-                          progressIndicatorBuilder:
-                              (context, url, downloadProgress) => Padding(
-                            padding: const EdgeInsets.all(30.0),
-                            child: CircularProgressIndicator(
-                                strokeWidth: 10,
-                                color: kColorOther,
-                                value: downloadProgress.progress),
-                          ),
-                          errorWidget: (context, url, error) => Image.asset(
-                            'assets/images/no_image.png',
-                            fit: BoxFit.cover,
-                          ),
-                          imageBuilder: (context, imageProvider) => Container(
-                            decoration: BoxDecoration(
-                                boxShadow: const [
-                                  BoxShadow(
-                                    color: kBoxShadowColor,
-                                    offset: Offset(
-                                      0.0,
-                                      4.0,
-                                    ),
-                                    blurRadius: 4.0,
-                                    spreadRadius: 0.1,
-                                  ), //BoxShadow
-                                ],
-                                image: DecorationImage(
-                                    fit: BoxFit.cover, image: imageProvider),
-                                borderRadius: BorderRadius.circular(10)),
-                          ),
-                        ),
-                      ),
-                    );
+                    return PictureGrid(index: index, imagesUrl: imagesUrl);
                   }, childCount: num),
                   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                       crossAxisCount: 3,
@@ -136,15 +98,7 @@ class _HomePageState extends State<HomePageView> {
                 SliverFixedExtentList(
                     delegate: SliverChildBuilderDelegate(
                         (BuildContext context, int index) {
-                      return Center(
-                        child: Text(
-                          kTextEndOfStory.toUpperCase(),
-                          textScaleFactor: 1.2,
-                          style: const TextStyle(
-                            color: kColorOther,
-                          ),
-                        ),
-                      );
+                      return const EndOfStory();
                     }, childCount: 1),
                     itemExtent: 60),
               ],

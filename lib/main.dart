@@ -10,7 +10,7 @@ void main() {
     systemNavigationBarDividerColor: Colors.transparent,
     statusBarIconBrightness: Brightness.light,
     systemNavigationBarIconBrightness: Brightness.light,
-    systemNavigationBarColor: kNavBarColor,
+    systemNavigationBarColor: kAllBarColor,
   ));
 }
 
