@@ -1,4 +1,4 @@
-# photo_gallery
+![screenshot of sample](https://github.com/Zifirut/photo_gallery/blob/master/icon.jpg)# photo_gallery
 
 A test task project.
 
