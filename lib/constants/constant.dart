@@ -11,22 +11,22 @@ var kBgGradient = const LinearGradient(
   begin: Alignment.topCenter,
   end: Alignment.bottomCenter,
   stops: [
-    0.25,
-    0.5,
-    0.75,
+    0.15,
+    0.35,
+    0.7,
     1.0,
   ],
   colors: [
-    Color(0xFF313F49),
+    Color(0xFF313F49), //0xFF313F49
     Color(0xFF20292F),
     Color(0xFF20292F),
-    Color(0xFF313F49),
+    Color(0xFF313F49), //0xFF313F49
   ],
 );
 //  Fetch Url
 const url = 'download_url'; // url // download_url // use this key
 const kFetchUrl =
-    // 'https://raw.githubusercontent.com/Zifirut/photo_gallery/master/photo.json'; // OWN Json
+    //'https://raw.githubusercontent.com/Zifirut/photo_gallery/master/photo.json'; // OWN Json
     'https://picsum.photos/v2/list?page=2&limit=100'; //  use url = 'download_url';
 //'https://s3-us-west-2.amazonaws.com/appsdeveloperblog.com/tutorials/files/cats.json'; // cats
 //'https://jsonplaceholder.typicode.com/photos'; // 1000 img

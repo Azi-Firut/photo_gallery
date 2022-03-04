@@ -62,6 +62,7 @@ class _HomePageState extends State<HomePageView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.transparent,
       appBar: AppBar(
         backgroundColor: Colors.red,
         elevation: 0,
@@ -70,40 +71,36 @@ class _HomePageState extends State<HomePageView> {
       ),
       bottomNavigationBar: const BottomNavBar(),
       body: Container(
+        height: double.infinity,
+        padding: const EdgeInsets.only(
+          left: 6,
+          right: 6,
+          top: 0,
+        ),
         decoration: BoxDecoration(gradient: kBgGradient),
-        child: SafeArea(
-          child: Padding(
-            padding: const EdgeInsets.only(left: 8, right: 8, top: 0),
-            child: CustomScrollView(
-              controller: _controller,
-              scrollDirection: Axis.vertical,
-              slivers: <Widget>[
-                SliverFixedExtentList(
-                    delegate: SliverChildBuilderDelegate(
-                        (BuildContext context, int index) {
-                      return const SizedBox(height: 15); //5
-                    }, childCount: 1),
-                    itemExtent: 15),
-                SliverGrid(
-                  delegate: SliverChildBuilderDelegate(
-                      (BuildContext context, int index) {
-                    return PictureGrid(index: index, imagesUrl: imagesUrl);
-                  }, childCount: num),
-                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 3,
-                      crossAxisSpacing: 0,
-                      mainAxisSpacing: 0,
-                      childAspectRatio: 1),
-                ),
-                SliverFixedExtentList(
-                    delegate: SliverChildBuilderDelegate(
-                        (BuildContext context, int index) {
-                      return const EndOfStory();
-                    }, childCount: 1),
-                    itemExtent: 60),
-              ],
+        child: ListView(
+          physics: const AlwaysScrollableScrollPhysics(),
+          shrinkWrap: true,
+          controller: _controller,
+          scrollDirection: Axis.vertical,
+          children: [
+            const SizedBox(height: 15),
+            GridView.builder(
+              physics: const NeverScrollableScrollPhysics(),
+              itemCount: num,
+              shrinkWrap: true, // false, infinite size error
+              itemBuilder: (BuildContext context, int index) {
+                return PictureGrid(
+                  //index: index,
+                  imagesUrl: imagesUrl[index],
+                );
+              },
+              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 3,
+              ),
             ),
-          ),
+            const EndOfStory(),
+          ],
         ),
       ),
     );

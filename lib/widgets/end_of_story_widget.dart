@@ -8,7 +8,7 @@ class EndOfStory extends StatelessWidget {
   Widget build(BuildContext context) {
     return Center(
       child: Padding(
-        padding: const EdgeInsets.only(left: 4, right: 4, bottom: 15, top: 5),
+        padding: const EdgeInsets.only(left: 8, right: 8, bottom: 15, top: 5),
         child: ElevatedButton(
           style: ElevatedButton.styleFrom(
             shape: RoundedRectangleBorder(

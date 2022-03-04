@@ -15,7 +15,7 @@ class ImageScreen extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
-        toolbarHeight: 0,
+        toolbarHeight: -10,
         flexibleSpace: const CustomAppBar(),
       ),
       bottomNavigationBar: const BottomNavBar(),
