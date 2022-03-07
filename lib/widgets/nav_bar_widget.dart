@@ -32,12 +32,13 @@ class BottomCustomPainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     Paint paint = Paint()
-      ..strokeWidth = 2
+      ..strokeWidth = 1
       ..color = kAllBarColor
       ..style = PaintingStyle.fill;
 
     Path path = Path();
 
+    ///path.quadraticBezierTo(bx, by, y, x);
     path.moveTo(0, -15); // Start // left top corner
     path.quadraticBezierTo(0, 0, 15, 0); // left top corner
     path.lineTo(size.width - 15, 0); // line center
@@ -52,19 +53,20 @@ class BottomCustomPainter extends CustomPainter {
     // Shadow path
     Path pathShadow = Path();
 
-    pathShadow.moveTo(0, -25); // Start // left top corner
-    pathShadow.quadraticBezierTo(0, -10, 25, -10); // left top corner
-    pathShadow.lineTo(size.width - 25, -10); // line center
-    pathShadow.moveTo(size.width - 25, -10); //right corner
+    ///path.quadraticBezierTo(bx, by, y, x);
+    pathShadow.moveTo(0, -35); // Start // left top corner
+    pathShadow.quadraticBezierTo(0, -10, 15, -10); // left top corner
+    pathShadow.lineTo(size.width - 15, -10); // line center
+    pathShadow.moveTo(size.width - 15, -10); //right corner
 
     pathShadow.quadraticBezierTo(
-        size.width, -10, size.width, -25); //right top corner
+        size.width, -10, size.width, -35); //right top corner
 
-    pathShadow.lineTo(size.width, size.height + 20); // right line
-    pathShadow.lineTo(0, size.height + 20); // bottom line
-    pathShadow.lineTo(0, -25); // End // left line
+    pathShadow.lineTo(size.width, size.height + 35); // right line
+    pathShadow.lineTo(0, size.height + 25); // bottom line
+    pathShadow.lineTo(0, -35); // End // left line
 
-    canvas.drawShadow(pathShadow, Colors.black, 3, false);
+    canvas.drawShadow(pathShadow, Colors.black, 5, true);
     canvas.drawPath(path, paint);
   }
 

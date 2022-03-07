@@ -4,6 +4,8 @@ import 'package:http/http.dart' as http;
 import 'package:photo_gallery/constants/constant.dart';
 import 'package:photo_gallery/widgets/end_of_story_widget.dart';
 import 'package:photo_gallery/widgets/picture_widget.dart';
+import '../data/fetch_api.dart';
+import '../domain/scroll_event.dart';
 import '../widgets/app_bar_widget.dart';
 import '../widgets/nav_bar_widget.dart';
 
@@ -62,12 +64,15 @@ class _HomePageState extends State<HomePageView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.transparent,
-      appBar: AppBar(
-        backgroundColor: Colors.red,
-        elevation: 0,
-        toolbarHeight: -10,
-        flexibleSpace: const CustomAppBar(),
+      backgroundColor: kAllBarColor,
+      appBar: PreferredSize(
+        preferredSize: const Size.fromHeight(0),
+        child: AppBar(
+          backgroundColor: Colors.red,
+          elevation: 0,
+          toolbarHeight: 0,
+          flexibleSpace: const CustomAppBar(),
+        ),
       ),
       bottomNavigationBar: const BottomNavBar(),
       body: Container(
@@ -84,14 +89,13 @@ class _HomePageState extends State<HomePageView> {
           controller: _controller,
           scrollDirection: Axis.vertical,
           children: [
-            const SizedBox(height: 15),
+            const SizedBox(height: 5),
             GridView.builder(
               physics: const NeverScrollableScrollPhysics(),
               itemCount: num,
               shrinkWrap: true, // false, infinite size error
               itemBuilder: (BuildContext context, int index) {
                 return PictureGrid(
-                  //index: index,
                   imagesUrl: imagesUrl[index],
                 );
               },
@@ -105,4 +109,7 @@ class _HomePageState extends State<HomePageView> {
       ),
     );
   }
+
+  @override
+  Size get preferredSize => Size.fromHeight(34);
 }
