@@ -4,8 +4,6 @@ import 'package:http/http.dart' as http;
 import 'package:photo_gallery/constants/constant.dart';
 import 'package:photo_gallery/widgets/end_of_story_widget.dart';
 import 'package:photo_gallery/widgets/picture_widget.dart';
-import '../data/fetch_api.dart';
-import '../domain/scroll_event.dart';
 import '../widgets/app_bar_widget.dart';
 import '../widgets/nav_bar_widget.dart';
 
