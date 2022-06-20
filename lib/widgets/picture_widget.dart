@@ -39,7 +39,7 @@ class PictureGrid extends StatelessWidget {
           borderRadius: BorderRadius.circular(10.0),
           child: Image.network(
             imagesUrl,
-            cacheHeight: 10,
+            cacheHeight: 100,
             isAntiAlias: true,
             fit: BoxFit.cover,
             width: double.infinity,
